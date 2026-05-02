@@ -1,0 +1,32 @@
+SleepyCombination Folder
+
+001_glasses_sleepyCombination -> start=599, end=2747
+001_noglasses_sleepyCombination -> start=330, end=2710
+002_glasses_sleepyCombination -> start=314, end=2878
+002_noglasses_sleepyCombination -> start=239, end=2656
+005_glasses_nonsleepyCombination -> start=650, end=744
+005_glasses_sleepyCombination -> start=287, end=2921
+005_noglasses_sleepyCombination -> start=249, end=3191
+006_glasses_sleepyCombination -> start=128, end=2848
+---------------------------------------------
+
+SlowBlinkWithNodding Folder
+
+001_glasses_slowBlinkWithNodding -> start=464, end=1920
+001_noglasses_slowBlinkWithNodding -> start=398, end=1851
+002_glasses_slowBlinkWithNodding -> start=395, end=2035
+002_noglasses_slowBlinkWithNodding -> start=209, end=1809
+005_glasses_slowBlinkWithNodding -> start=344, end=2252
+005_noglasses_slowBlinkWithNodding -> start=223, end=2252
+006_glasses_slowBlinkWithNodding -> start=316, end=508
+
+---------------------------------------------
+
+Yawning Folder
+
+001_glasses_yawning -> start=339, end=1849
+001_noglasses_yawning -> start=196, end=1871
+002_glasses_yawning -> start=432, end=2066
+002_noglasses_yawning -> start=268, end=1770
+005_glasses_yawning -> start=298, end=2297
+005_noglasses_yawning -> start=407, end=2639
