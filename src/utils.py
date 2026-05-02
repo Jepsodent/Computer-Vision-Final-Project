@@ -1,5 +1,5 @@
 import numpy as np
-
+import cv2 
 def euclidean(p1,p2):
     return np.linalg.norm(np.array(p1) - np.array(p2))
 
@@ -24,3 +24,8 @@ def calculate_mar(points):
     C = euclidean(points[3], points[5])  
     D = euclidean(points[0], points[4])  
     return (A + B +C) / (2.0 * D)
+
+
+#AUgmentation
+def darken_image(image,factor=0.3):
+    return (image * factor).astype("uint8")
