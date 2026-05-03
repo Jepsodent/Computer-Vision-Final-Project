@@ -1,6 +1,6 @@
 import os
 
-base_path = "Multi class/train/drowsy/yawning"
+base_path = "Multi class/train/notdrowsy"
 
 subjects = set()
 conditions = set()

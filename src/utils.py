@@ -24,33 +24,45 @@ def calculate_mar(points):
     D = euclidean(points[0], points[4])  
     return (A + B +C) / (2.0 * D)
 
-def build_sequences(folder_path, prefix, start, end, label, seq_len = 30):
+def process_variant(img, variant):
     from.feature_extraction import process_frame
+    if variant == "original":
+        return process_frame(img, use_preprocessing=False)
+    elif variant =="dark":
+        img = darken_image(img)
+        return process_frame(img, use_preprocessing=False)
+    elif variant == "pre":
+        img = darken_image(img)
+        return process_frame(img, use_preprocessing=True)        
+    
+
+def build_sequences(folder_path, prefix, start, end, label,variant,  seq_len = 30):
     import cv2 
 
-    sequences = []
+    sequences = [] #[ [ear, mar] ]
     labels = []
-
+    failed = 0
     current_seq = []
     for i in range(start,end + 1):
         filename = f"{prefix}_{i}_drowsy.jpg" if label == 1 else f"{prefix}_{i}_notdrowsy.jpg"
         path = f"{folder_path}/{filename}"
 
         img = cv2.imread(path)
-        result = process_frame(img, use_preprocessing=False)
+        result = process_variant(img, variant)
 
         if result is None:
+            failed += 1
             continue
 
         ear, mar = result
         current_seq.append([ear, mar])
 
         if len(current_seq) == seq_len:
-            sequences.append(current_seq)
+            sequences.append(list(current_seq))
             labels.append(label)
-            current_seq = []
+            current_seq.pop(0)
 
-    return sequences, labels
+    return sequences, labels , failed
 
 
 #AUgmentation
