@@ -1,5 +1,4 @@
 import numpy as np
-import cv2 
 def euclidean(p1,p2):
     return np.linalg.norm(np.array(p1) - np.array(p2))
 
@@ -24,6 +23,34 @@ def calculate_mar(points):
     C = euclidean(points[3], points[5])  
     D = euclidean(points[0], points[4])  
     return (A + B +C) / (2.0 * D)
+
+def build_sequences(folder_path, prefix, start, end, label, seq_len = 30):
+    from.feature_extraction import process_frame
+    import cv2 
+
+    sequences = []
+    labels = []
+
+    current_seq = []
+    for i in range(start,end + 1):
+        filename = f"{prefix}_{i}_drowsy.jpg" if label == 1 else f"{prefix}_{i}_notdrowsy.jpg"
+        path = f"{folder_path}/{filename}"
+
+        img = cv2.imread(path)
+        result = process_frame(img, use_preprocessing=False)
+
+        if result is None:
+            continue
+
+        ear, mar = result
+        current_seq.append([ear, mar])
+
+        if len(current_seq) == seq_len:
+            sequences.append(current_seq)
+            labels.append(label)
+            current_seq = []
+
+    return sequences, labels
 
 
 #AUgmentation
