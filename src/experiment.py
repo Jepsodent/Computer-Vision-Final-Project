@@ -69,10 +69,10 @@ dataset_metadata = [
 def generate_seq(variant="original"):
     all_X = []
     all_y = []
-    failed_total = 0
+    all_groups = []
     for case in dataset_metadata:
         folder_path = os.path.join(base_path, case["folder"])
-        X, y , failed = build_sequences(
+        X, y , groups = build_sequences(
             folder_path=folder_path,
             prefix=case['prefix'],
             start=case['start'],
@@ -81,11 +81,10 @@ def generate_seq(variant="original"):
             variant=variant,
             seq_len=30
         )
-        failed_total += failed
         if len(X) > 0:
             all_X.extend(X)
             all_y.extend(y)
-    print("Total failed:", failed_total)
+            all_groups.extend(groups)
     print("Total Sequences: ", len(all_X))
-    return np.array(all_X), np.array(all_y)
+    return np.array(all_X), np.array(all_y) , np.array(all_groups)
 

@@ -25,7 +25,10 @@ def calculate_mar(points):
     return (A + B +C) / (2.0 * D)
 
 def process_variant(img, variant):
-    from.feature_extraction import process_frame
+    from .feature_extraction import process_frame
+    if img is None:
+        return None
+    
     if variant == "original":
         return process_frame(img, use_preprocessing=False)
     elif variant =="dark":
@@ -38,20 +41,27 @@ def process_variant(img, variant):
 
 def build_sequences(folder_path, prefix, start, end, label,variant,  seq_len = 30):
     import cv2 
+    
 
     sequences = [] #[ [ear, mar] ]
     labels = []
-    failed = 0
+    
+    groups = []
+    subject_id = prefix.split("_")[0]
+    print(subject_id)
     current_seq = []
+
     for i in range(start,end + 1):
         filename = f"{prefix}_{i}_drowsy.jpg" if label == 1 else f"{prefix}_{i}_notdrowsy.jpg"
         path = f"{folder_path}/{filename}"
 
         img = cv2.imread(path)
+        if img is None:
+            continue
+
         result = process_variant(img, variant)
 
         if result is None:
-            failed += 1
             continue
 
         ear, mar = result
@@ -60,9 +70,10 @@ def build_sequences(folder_path, prefix, start, end, label,variant,  seq_len = 3
         if len(current_seq) == seq_len:
             sequences.append(list(current_seq))
             labels.append(label)
+            groups.append(subject_id)
             current_seq.pop(0)
 
-    return sequences, labels , failed
+    return sequences, labels , groups 
 
 
 #AUgmentation
